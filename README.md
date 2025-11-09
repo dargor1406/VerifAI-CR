@@ -1,208 +1,252 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-## 🎯 Inspiration
+# VerifAI: Proof of Human Agency in AI Collaboration
 
-We're entering an era where AI amplifies human creativity exponentially. But as creation accelerates, a critical question emerges:
+[![Cloud Run](https://img.shields.io/badge/Cloud%20Run-Deployed-4285F4?logo=google-cloud)](https://verifai-v2-838150888493.us-west1.run.app/)
+[![Gemini](https://img.shields.io/badge/Gemini-2.5%20Flash-34A853)](https://ai.google.dev/gemini-api)
+[![Hackathon](https://img.shields.io/badge/Hackathon-Cloud%20Run%202025-orange)](https://cloudrun-hackathon.devpost.com/)
 
-**How do we prove the human mind guided the process?**
+> **Generate trust, not just content.** Verifiable certificates for human-directed AI work.
 
-When a student uses AI to write an essay, a researcher to analyze data, or an artist to create—where's the boundary between human direction and AI execution?
-
-VerifAI was born to answer this question with mathematical certainty.
-
----
-
-## 🚀 What it does
-
-VerifAI is a **deterministic certification system** that measures and verifies human agency in AI-assisted work.
-
-**Upload your work + collaboration history → Receive verifiable certificate in 20 seconds.**
-
-The certificate contains:
-
-🟢 **Human Agency Score (HAS)**: 0-75 scale (ethically capped at 75%)  
-🔵 **Verification Level (VER)**: 0-3 rigor grade  
-🔐 **Cryptographic Hash**: SHA-256 proof of authenticity  
-📊 **Semantic Breakdown**: Originality, Influence, Direction, Complexity  
-
-**Key principle:** VerifAI doesn't compete with AI generation—it completes it by generating trust.
+🔗 **Live Demo:** www.verifai.astigarraga.art  
+📄 **Devpost:** https://devpost.com/software/verifai-verifiable-legitimacy-for-human-ai-collaboration  
+🎥 **Video Demo:** https://youtu.be/cs3ZDLeOpXc
 
 ---
 
-## 🏗️ How we built it
+## 🎯 The Problem
 
-**Stack:**
-- **Google Cloud Run** (serverless deployment)
-- **Gemini 2.5 Flash** (semantic sensor - multi-agent architecture)
-- **TypeScript** (deterministic calculator engine)
-- **Secret Manager** (secure API key storage)
-- **React** (frontend UI)
+Traditional AI detectors ask: *"Did AI write this?"* — **Wrong question.**
 
-**Architecture:**
+When AI becomes a collaborator (not just a generator), binary detection breaks:
+- Academic papers flagged as "100% AI" despite human direction
+- Rigorous research dismissed as "plagiarism"  
+- No way to prove human agency in AI-assisted work
+
+**Real example:** A 67-page historical investigation (6 months of research) was flagged as **81% AI-generated** by GPTZero. But it was human-directed research using AI as a methodological tool.
+
+---
+
+## 💡 The Solution
+
+**VerifAI measures human agency, not AI presence.**
+
+Upload your work + collaboration history → Verifiable certificate in ~20 seconds.
+
+### What You Get:
+- **HAS (Human Agency Score):** 0-75 scale *(ethically capped at 75%)*
+- **VER (Verification Level):** 0-3 rigor grade  
+- **Cryptographic Hash:** SHA-256 proof  
+- **Breakdown:** Originality, Influence, Direction, Complexity
+
+---
+
+## 🏗️ How It Works
 
 **Multi-Agent System:**
-1. **Agent 1 (Gemini)**: Semantic sensor—analyzes artifact + ledger, returns 9 scores [0-1]
-2. **Agent 2 (Calculator)**: Deterministic engine—applies PPM-HAS v0.3 formula
-3. **Agent 3 (Notary)**: Certificate generator—SHA-256 hash + cryptographic seal
+```
+┌──────────┐
+│   USER   │ Uploads artifact + ledger (optional)
+└────┬─────┘
+     │
+     ↓
+┌─────────────────────────────┐
+│  🤖 Agent 1: Gemini Sensor  │ Semantic analysis
+│  (Gemini 2.5 Flash)         │
+└─────────────┬───────────────┘
+              │ 9 scores [0-1]
+              ↓
+┌─────────────────────────────┐
+│  ⚙️  Agent 2: Calculator    │ Proprietary scoring engine
+│  (PPM-HAS methodology)      │ [Details: judges only]
+└─────────────┬───────────────┘
+              │ HAS score
+              ↓
+┌─────────────────────────────┐
+│  🔐 Agent 3: Notary         │ Certificate + SHA-256 seal
+└─────────────┬───────────────┘
+              │
+              ↓
+         📜 Certificate
+```
 
-**Philosophy:**
-- **No database**: Privacy-first. Process but never store.
-- **Deterministic**: Same input → same output (always).
-- **Transparent**: Open-source methodology (PPM-HAS).
-
-**Core Innovation: Ping-Pong Method (PPM)**
-
-A novel protocol that analyzes temporal patterns in human-AI dialogue to quantify:
-- **Originality (ORG)**: How unique is the final work?
-- **Human Influence (HI)**: How much did human decisions shape outcomes?
-- **Process Direction (PD)**: How clearly did the human guide iterations?
-- **Refinement Depth (REF)**: How many meaningful human corrections occurred?
-
-The result is a reproducible, auditable score that any LLM or verification system can understand.
-
----
-
-## 💪 Challenges we ran into
-
-**1. Ethical Ceiling:**
-Should any automated system claim 100% certainty about human agency? We decided no. 
-
-Our **75% cap** is philosophical: "No automated system can claim more than 75% certainty without external human validation." This humility is coded into our core.
-
-**2. Determinism vs. LLMs:**
-LLMs are probabilistic. How do we achieve deterministic results?
-
-Solution: **LLM as sensor** (measures semantic signals), **code as judge** (applies fixed formula). Gemini provides 9 scores [0-1], our TypeScript engine calculates HAS deterministically.
-
-**3. Privacy:**
-How do we verify work without storing sensitive data?
-
-Solution: Process everything in-memory. Generate certificate + hash. Discard inputs immediately. Zero persistence = zero privacy risk.
-
-**4. Real-world validation:**
-We tested VerifAI on actual use cases:
-- 6-month historical research paper (Gastón Gadín case) → Wikipedia article
-- Creative projects (Arkan character design)
-- Academic papers (PPM methodology itself)
-
-The tool verified itself being built. **Meta-validation achieved.**
+**Key Principles:**
+- ✅ **Deterministic:** Same input → same output
+- ✅ **Privacy-first:** No database. Process in-memory only.
+- ✅ **Transparent methodology:** PPM-HAS v0.3 *(scoring engine: proprietary)*
+- ✅ **Ethical cap:** 75% maximum (coded, not configurable)
 
 ---
 
-## 🏆 Accomplishments
+## 🚀 Try It Now
 
-✅ **Working product in production** (not just a demo)  
-✅ **Novel methodology** (PPM-HAS v0.3) understandable by any LLM  
-✅ **Ethical framework** coded into architecture (75% cap)  
-✅ **Real users** (ourselves—we use it daily)  
-✅ **Self-validating** (VerifAI verified its own creation process)  
-✅ **Multi-agent architecture** deployed on Cloud Run  
-✅ **Zero infrastructure drama** (Secret Manager + AI Studio deploy = 10 minutes)  
+: Live Demo
+Visit www.verifai.astigarraga.art  and upload any document.
+
+
 
 ---
 
-## 📚 What we learned
+## 🔬 Real-World Case Study
 
-**1. Generation + Verification = Complete Ecosystem**
+**Challenge:** 110-year-old murder case (Paraguay, 1915)
 
-AI expands what's possible. VerifAI ensures its integrity. Neither is complete without the other.
+**My approach:**
+- 6 months of archival research
+- AI-assisted document analysis (newspapers, parish records)
+- Multi-source verification
+- Novel findings: Real identity discovered (Ana Basilia Caballero Santa Cruz)
 
-**2. Simplicity > Complexity**
+**Detector Comparison:**
+- **GPTZero:** 81% AI ❌  
+- **VerifAI:** 75/75 HAS ✅
 
-We spent 8+ hours trying custom Dockerfiles and complex backends. Final solution? AI Studio's "Deploy to Cloud Run" button + Secret Manager. **Done in 10 minutes.**
+📄 **Full paper:** [DOI 10.5281/zenodo.17284483](https://zenodo.org/record/17284483)
 
-Lesson: Use Google's blessed path. It exists for a reason.
-
-**3. Ethics as Code**
-
-"No system should claim 100% certainty" isn't a policy document. It's `const ETHICAL_CAP = 75;` in production code. Philosophy → Implementation → Reality.
-
-**4. Privacy is Paramount**
-
-When you verify sensitive work (research, proprietary code), users need to trust you won't store it. Architecture decision: **No database. Ever.** Process → Certificate → Discard.
+**Why the difference?**  
+Detectors measure *predictability*. VerifAI measures *agency*.
 
 ---
 
-## 🔮 What's next
+## 🎯 Use Cases
 
-**Phase 1 (Current):** Basic certification  
-**Phase 2 (Q1 2026):** Enhanced insights
-
-Integrate **Gemini 2.5 Flash** as a qualitative companion:
-- Summarize collaboration dynamics
-- Identify key turning points in creative process
-- Distinguish between "Director Mode" (human leads) vs "Synergy Mode" (true collaboration)
-- Provide actionable feedback: "Your iteration depth is strong, but consider more upfront direction"
-
-**Phase 3 (2026+):** Ecosystem integration
-- **Academic institutions**: Thesis submission verification
-- **Publishers**: Manuscript authorship certification
-- **Portfolio platforms**: "Verified Creator" badges
-- **Music industry**: Royalty-eligible AI-assisted compositions
-
-**Vision:** Every significant AI-assisted work should have a VerifAI certificate—not as gatekeeping, but as transparency. Like nutrition labels for food, but for creative agency.
+- ✅ **Academia:** Thesis certification  
+- ✅ **Publishing:** Manuscript verification  
+- ✅ **Creative Industries:** Music royalties (AI-assisted compositions)  
+- ✅ **Legal:** Court evidence of authorship  
+- ✅ **Education:** Student work integrity  
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Cloud Run** (serverless deployment)
-- **Gemini 2.5 Flash** (semantic analysis)
-- **TypeScript** (backend + calculator)
-- **React** (frontend)
-- **Secret Manager** (API key security)
-- **SHA-256** (cryptographic hashing)
-- **PPM-HAS v0.3** (our proprietary methodology)
+- **Frontend:** React, Tailwind CSS
+- **Backend:** Node.js, Express, TypeScript
+- **AI:** Gemini 2.5 Flash (via AI Studio)
+- **Deployment:** Google Cloud Run (serverless)
+- **Security:** Secret Manager (API key storage)
+- **Hashing:** SHA-256 (certificate integrity)
 
 ---
 
-## 🔗 Links
+## 🔒 Privacy & Security
 
-- **Live Demo**: https://verifai-v2-838150888493.us-west1.run.app/
-- **GitHub**: [https://github.com/dargor1406/VerifAIv2](https://github.com/dargor1406/VerifAI-CR)
-
----
-
-## 🎬 Quick Start
-
-1. Visit https://verifai-v2-838150888493.us-west1.run.app/
-2. Upload your work (text, image, or PDF)
-3. (Optional) Paste your AI collaboration history
-4. Click "Verify My Work"
-5. Receive certificate in ~20 seconds
-
-No signup. No storage. Just verification.
+- **No database:** Zero storage of artifacts/ledgers
+- **Process-only:** Data exists in memory during analysis, then discarded
+- **Secret Manager:** API keys never exposed to frontend
+- **Cryptographic proof:** SHA-256 seal on every certificate
 
 ---
 
-## 🧠 The Philosophy
+## 📊 Methodology
 
-**VerifAI exists because:**
+**PPM-HAS v0.3** (Ping-Pong Method for Human Agency Scoring)
 
-The future isn't "humans vs AI" or "AI replacing humans."
+Analyzes temporal patterns in human-AI collaboration:
+- **Originality (ORG):** Uniqueness of final work
+- **Human Influence (HI):** Decision-making impact
+- **Process Direction (PD):** Clarity of guidance
+- **Refinement (REF):** Meaningful corrections
 
-It's **"humans directing AI."**
+*Note: Detailed scoring engine available to judges/partners only (proprietary IP).*
 
-And when that direction matters—for academic integrity, creative attribution, professional credibility—**proof should exist.**
+Published framework: [DOI 10.5281/zenodo.17284483](https://zenodo.org/record/17284483)
 
-Not to punish AI use. To celebrate human agency.
+---
 
-**VerifAI: Where generation meets verification.**
+## 🚀 Local Development
+```bash
+# Clone
+git clone https://github.com/dargor1406/VerifAI-CR.git
+cd VerifAI-CR
 
-# Run and deploy your AI Studio app
+# Backend
+cd backend
+npm install
+# Add GEMINI_API_KEY to Secret Manager or .env.local
+npm run dev
 
-This contains everything you need to run your app locally.
+# Frontend (new terminal)
+cd frontend
+npm install
+npm start
+```
 
-View your app in AI Studio: https://ai.studio/apps/drive/1chssrqIq5O24BqvvVc11V39-_n8KXvGQ
+**Note:** Scoring engine is not included in public repo (proprietary).
 
-## Run Locally
+---
 
-**Prerequisites:**  Node.js
+## 🏆 Built For
+
+**Google Cloud Run Hackathon 2025**  
+**Category:** AI Agents  
+**Author:** Iván Astigarraga (Paraguay 🇵🇾)  
+**ORCID:** [0009-0007-5999-7289](https://orcid.org/0009-0007-5999-7289)
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome for:
+- UI/UX improvements
+- Additional language support
+- Documentation
+- Bug reports
+
+*Note: Core scoring algorithm is proprietary and not open for contribution.*
 
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+---
+
+## 📄 License
+
+MIT License (application code)  
+*Scoring engine (PPM-HAS implementation): All rights reserved*
+
+
+---
+
+## 📞 Contact
+
+**Email:** ivan@astigarraga.art  
+**GitHub:** [@dargor1406](https://github.com/dargor1406)  
+**Location:** Paraguay 🇵🇾
+
+---
+
+**Built with ☕ in Paraguay by a photographer who needed proof.**
+
+*"We don't compete with generation. We complete it with verification."*
+```
+
+---
+
+## 📝 **LICENSE (Actualizado con IP protection):**
+```
+MIT License
+
+Copyright (c) 2025 Iván Astigarraga
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+EXCEPTIONS:
+- The PPM-HAS scoring engine implementation (core algorithm in backend/engine/)
+  is proprietary and NOT covered by this MIT License.
+- The methodology framework (PPM-HAS v0.3) is documented under CC BY 4.0
+  (see: DOI 10.5281/zenodo.17284483)
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
