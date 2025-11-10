@@ -5,6 +5,9 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="mt-16 pt-8 border-t border-brand-border text-center text-xs text-brand-secondary max-w-4xl mx-auto">
+      <p className="mb-4 font-semibold text-brand-light">
+        “Built entirely inside Google AI Studio using Gemini — 0 manual code, 100% compliant with the AI Studio Challenge rules. Deployed directly to Cloud Run.”
+      </p>
       <p className="mb-4">
         © {currentYear} Iván Astigarraga. All rights reserved.
       </p>

@@ -24,6 +24,7 @@ export interface ModeDecision {
 export interface LLMSensorResponse {
   scores: SemanticScores;
   turns: TurnCounts;
+  sim_score: number | null;
 }
 
 export interface Artifact {

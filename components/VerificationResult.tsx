@@ -1,9 +1,9 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import type { NotaryReport } from '../types';
 import { SealIcon } from './icons/SealIcon';
 import { DocumentTextIcon } from './icons/DocumentTextIcon';
-import { DownloadIcon } from './icons/DownloadIcon';
+import { ClipboardCopyIcon } from './icons/ClipboardCopyIcon';
 
 const getVerLevelDetails = (ver: string) => {
     switch (ver) {
@@ -63,19 +63,43 @@ const MeasuredScore: React.FC<{ name: string; abbreviation: string; value: numbe
 );
 
 export const VerificationResult: React.FC<{ result: NotaryReport, onReset: () => void }> = ({ result, onReset }) => {
+    const [isCopied, setIsCopied] = useState(false);
     const { title, color, bgColor, description } = getVerLevelDetails(result.VER);
 
-    const handleDownload = () => {
-        const jsonString = JSON.stringify(result, null, 2);
-        const blob = new Blob([jsonString], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `verifai-report-${result.cert_id}.json`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+    // Show the improvement tip for artifact-only results that haven't achieved the highest verification level.
+    const isArtifactOnly = result.scores.HI === 0 && result.scores.PD === 0;
+    const showImprovementTip = isArtifactOnly && result.VER !== 'VER-3';
+
+    const handleCopyCertificate = () => {
+        const verDetails = getVerLevelDetails(result.VER);
+
+        const certificateText = `
+--- VerifAI Certificate of Human Agency ---
+Verification Level: ${result.VER} (${verDetails.title})
+Human Agency Score (HAS): ${result.HAS}
+
+${verDetails.description}
+
+Certificate ID: ${result.cert_id}
+Artifact SHA256: ${result.artifact_sha256}
+Issued At: ${new Date(result.issued_at).toUTCString()}
+Policy Model: ${result.PPM_MODEL_POLICY}
+
+--- Core Metrics ---
+Originality (ORG): ${(result.scores.ORG * 100).toFixed(0)}
+Human Influence (HI): ${(result.scores.HI * 100).toFixed(0)}
+Process Direction (PD): ${(result.scores.PD * 100).toFixed(0)}
+Integrity (INTEG): ${(result.scores.INTEG * 100).toFixed(0)}
+--- End of Certificate ---
+`.trim();
+
+        navigator.clipboard.writeText(certificateText).then(() => {
+            setIsCopied(true);
+            setTimeout(() => setIsCopied(false), 2500); // Reset after 2.5 seconds
+        }).catch(err => {
+            console.error('Failed to copy certificate: ', err);
+            // You could add user-facing error feedback here if desired
+        });
     };
 
     return (
@@ -94,9 +118,21 @@ export const VerificationResult: React.FC<{ result: NotaryReport, onReset: () =>
             <div className="text-center bg-brand-dark p-4 rounded-md mb-8">
                 <p className="text-brand-light">{description}</p>
                 <p className="text-brand-primary italic mt-2 font-semibold">
-                    Your work demonstrates that you have creativity, ingenuity, and direction!
+                    Scores are deterministic and not final. Please review your certificate in context with your full work.
                 </p>
             </div>
+
+            {showImprovementTip && (
+              <div className="bg-brand-dark p-4 rounded-md border border-amber-500/30 mb-8">
+                <p className="font-semibold text-amber-300">💡 <strong>How to improve your score</strong></p>
+                <p className="text-sm text-brand-secondary mt-2">
+                  Your artifact shows coherence and originality, but no process evidence was detected.
+                </p>
+                <p className="text-sm text-brand-secondary mt-1">
+                  To achieve a higher Human Agency Score (HAS), include a process ledger or documented interaction history.
+                </p>
+              </div>
+            )}
 
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
@@ -164,11 +200,11 @@ export const VerificationResult: React.FC<{ result: NotaryReport, onReset: () =>
                         Verify Another Work
                     </button>
                     <button
-                        onClick={handleDownload}
+                        onClick={handleCopyCertificate}
                         className="w-full sm:w-auto flex items-center justify-center gap-2 bg-transparent border border-brand-primary text-brand-primary font-bold py-3 px-6 rounded-md hover:bg-brand-primary/10 transition duration-150"
                     >
-                        <DownloadIcon className="w-5 h-5" />
-                        Download Report
+                        <ClipboardCopyIcon className="w-5 h-5" />
+                        {isCopied ? 'Copied!' : 'Copy Certificate'}
                     </button>
                 </div>
                 <p className="text-xs text-brand-secondary mt-6">Policy Model: {result.PPM_MODEL_POLICY} | Parser: {result.parser_source}</p>
