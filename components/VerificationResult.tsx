@@ -3,6 +3,7 @@ import React from 'react';
 import type { NotaryReport } from '../types';
 import { SealIcon } from './icons/SealIcon';
 import { DocumentTextIcon } from './icons/DocumentTextIcon';
+import { DownloadIcon } from './icons/DownloadIcon';
 
 const getVerLevelDetails = (ver: string) => {
     switch (ver) {
@@ -63,6 +64,19 @@ const MeasuredScore: React.FC<{ name: string; abbreviation: string; value: numbe
 
 export const VerificationResult: React.FC<{ result: NotaryReport, onReset: () => void }> = ({ result, onReset }) => {
     const { title, color, bgColor, description } = getVerLevelDetails(result.VER);
+
+    const handleDownload = () => {
+        const jsonString = JSON.stringify(result, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `verifai-report-${result.cert_id}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    };
 
     return (
         <div className="bg-brand-card border border-brand-border rounded-lg p-6 lg:p-8 animate-fade-in">
@@ -142,13 +156,22 @@ export const VerificationResult: React.FC<{ result: NotaryReport, onReset: () =>
             </div>
 
             <div className="text-center">
-                <button
-                    onClick={onReset}
-                    className="bg-brand-primary text-white font-bold py-3 px-6 rounded-md hover:bg-blue-500 transition duration-150"
-                >
-                    Verify Another Work
-                </button>
-                <p className="text-xs text-brand-secondary mt-4">Policy Model: {result.PPM_MODEL_POLICY} | Parser: {result.parser_source}</p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button
+                        onClick={onReset}
+                        className="w-full sm:w-auto bg-brand-primary text-white font-bold py-3 px-6 rounded-md hover:bg-blue-500 transition duration-150"
+                    >
+                        Verify Another Work
+                    </button>
+                    <button
+                        onClick={handleDownload}
+                        className="w-full sm:w-auto flex items-center justify-center gap-2 bg-transparent border border-brand-primary text-brand-primary font-bold py-3 px-6 rounded-md hover:bg-brand-primary/10 transition duration-150"
+                    >
+                        <DownloadIcon className="w-5 h-5" />
+                        Download Report
+                    </button>
+                </div>
+                <p className="text-xs text-brand-secondary mt-6">Policy Model: {result.PPM_MODEL_POLICY} | Parser: {result.parser_source}</p>
             </div>
         </div>
     );
